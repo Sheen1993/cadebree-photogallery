@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply min-h-screen bg-slate-50 font-sans text-slate-800 antialiased;
+  }
+
+  ::selection {
+    @apply bg-love-lilac text-slate-900;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-love-sky-deep ring-offset-2 ring-offset-white;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply border border-white/40 bg-white/70 shadow-xl backdrop-blur-md;
+  }
+
+  /* Dual-color gradient border that fades in on hover. Works on any rounded element. */
+  .gradient-border {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    padding: 2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #90d5ff, #dfc5fe, #90d5ff);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .gradient-border:hover::before,
+  .gradient-border:focus-visible::before,
+  .gradient-border.is-active::before {
+    opacity: 1;
+  }
+
+  .text-gradient {
+    @apply bg-love-gradient-deep bg-clip-text text-transparent;
+  }
+
+  .shimmer-bg {
+    background-image: linear-gradient(
+      90deg,
+      rgba(144, 213, 255, 0.18) 0%,
+      rgba(223, 197, 254, 0.35) 50%,
+      rgba(144, 213, 255, 0.18) 100%
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
+}
+
+@layer utilities {
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
